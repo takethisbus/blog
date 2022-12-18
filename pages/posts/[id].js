@@ -2,12 +2,15 @@ import Date from "../../components/Date";
 import Layout from "../../components/Layout";
 import { getAllPostIds, getPostData } from '../../lib/posts';
 import utilStyles from '../../styles/utils.module.css';
+import  { MDXRemote } from "next-mdx-remote";
+import CodeBlock from "../../components/CodeBlock";
+import { useRouter } from "next/router";
 
 export async function getStaticPaths() {
   const paths = getAllPostIds();
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 
@@ -20,7 +23,26 @@ export async function getStaticProps({ params }) {
   };
 }
 
+const Button = ({ children }) => { 
+  return (
+    <button
+      className="bg-black text-teal-400 text-sm py-1 px-2 rounded-md ml-2"
+      onClick={() => alert(children)}
+    >
+      {children}
+    </button>
+  )
+} 
+
+const components = { Button, CodeBlock }
+
 function Post({ postData }) {
+  const router = useRouter();
+  
+  if (router.isFallback) { 
+    return <div>Loading...</div>
+  }
+  
   return (
     <Layout>
       <article>
@@ -28,7 +50,8 @@ function Post({ postData }) {
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        {postData && <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />}
+        {postData.mdxSource && <MDXRemote {...postData.mdxSource} components={components} />}
       </article>
     </Layout>
   );
