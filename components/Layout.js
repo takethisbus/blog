@@ -37,7 +37,7 @@ export default function Layout({ children, home }) {
   }, [theme]);
   
   return (
-    <div className='h-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray200'>
+    <div className='h-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200'>
       <div className={styles.container}>
         <Head>
           <link rel="icon" href="/favicon.ico" />
