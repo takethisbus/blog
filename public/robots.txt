@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://blog-jinjinzara.vercel.app/
+
+# Sitemaps
+Sitemap: https://blog-jinjinzara.vercel.app/sitemap.xml
