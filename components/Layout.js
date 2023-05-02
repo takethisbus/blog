@@ -1,33 +1,33 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import styles from './layout.module.css';
-import utilStyles from '../styles/utils.module.css';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import Utterances from './Utterances';
+import Head from 'next/head'
+import Image from 'next/image'
+import styles from './layout.module.css'
+import utilStyles from '../styles/utils.module.css'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import Utterances from './Utterances'
 
-const name = 'JINA JEON';
-export const siteTitle = 'TTOTTACKTTOTTACK';
+const name = 'JINA JEON'
+export const siteTitle = 'Bug Storage'
 
 export default function Layout({ children, home }) {
-  const [theme, setTheme] = useState(
-    () => typeof window !== 'undefined'
+  const [theme, setTheme] = useState(() =>
+    typeof window !== 'undefined'
       ? localStorage.getItem('theme') === 'dark'
         ? 'dark'
         : 'light'
-      :'light'
-  );
+      : 'light'
+  )
 
-  const handleClick = () => { 
-    const theme = localStorage.getItem('theme');
-    if (theme === "dark") {
-      localStorage.setItem('theme', 'light');
-      setTheme('light');
-    } else { 
-      localStorage.setItem('theme', 'dark');
-      setTheme('dark');
+  const handleClick = () => {
+    const theme = localStorage.getItem('theme')
+    if (theme === 'dark') {
+      localStorage.setItem('theme', 'light')
+      setTheme('light')
+    } else {
+      localStorage.setItem('theme', 'dark')
+      setTheme('dark')
     }
-  };
+  }
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -35,10 +35,10 @@ export default function Layout({ children, home }) {
     } else {
       document.querySelector('body').classList.remove('dark')
     }
-  }, [theme]);
-  
+  }, [theme])
+
   return (
-    <div className='h-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200'>
+    <div className="h-full bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-200">
       <div className={styles.container}>
         <Head>
           <link rel="icon" href="/favicon.ico" />
@@ -49,14 +49,14 @@ export default function Layout({ children, home }) {
           <meta
             property="og:image"
             content={`https://og-image.vercel.app/${encodeURI(
-              siteTitle,
+              siteTitle
             )}.png?theme=light&md=0&fontSize=75px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg`}
           />
           <meta name="og:title" content={siteTitle} />
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
-        <button className='w-12 px-2' onClick={handleClick}>
-            <img src={`/${theme}-mode.svg`} alt={theme} />
+        <button className="w-12 px-2" onClick={handleClick}>
+          <img src={`/theme/${theme}-mode.svg`} alt={theme} />
         </button>
         <header className={styles.header}>
           {home ? (
@@ -96,7 +96,7 @@ export default function Layout({ children, home }) {
         <main>{children}</main>
         {!home && (
           <>
-            <Utterances/>
+            <Utterances />
             <div className={styles.backToHome}>
               <Link href="/">
                 <a>← Back to home</a>
@@ -106,5 +106,5 @@ export default function Layout({ children, home }) {
         )}
       </div>
     </div>
-  );
+  )
 }
