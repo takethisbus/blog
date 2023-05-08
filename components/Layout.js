@@ -5,6 +5,7 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Utterances from './Utterances'
+import { useMount } from '../hooks/useMount'
 
 const name = 'JINA JEON'
 export const siteTitle = 'Bug Storage'
@@ -17,6 +18,7 @@ export default function Layout({ children, home }) {
         : 'light'
       : 'light'
   )
+  const isMounted = useMount()
 
   const handleClick = () => {
     const theme = localStorage.getItem('theme')
@@ -56,7 +58,7 @@ export default function Layout({ children, home }) {
           <meta name="twitter:card" content="summary_large_image" />
         </Head>
         <button className="w-12 px-2" onClick={handleClick}>
-          <img src={`/theme/${theme}-mode.svg`} alt={theme} />
+          {isMounted && <img src={`/theme/${theme}-mode.svg`} alt={theme} />}
         </button>
         <header className={styles.header}>
           {home ? (
